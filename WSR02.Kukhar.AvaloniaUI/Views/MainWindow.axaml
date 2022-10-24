@@ -1,0 +1,231 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:WSR02.Kukhar.AvaloniaUI.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" 
+		d:DesignWidth="850" 
+		Width="850"
+		d:DesignHeight="700"
+		Height="700"
+        x:Class="WSR02.Kukhar.AvaloniaUI.Views.MainWindow"
+        Icon="/Assets/logo.ico"
+        Title="WSR02.Kukhar.AvaloniaUI"
+		MinHeight="600"
+		MinWidth="750"
+		FontFamily="Calibri">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+	<Grid>
+		<Image
+			Source="/Assets/logo.png"
+			Opacity=".3"/>
+
+		<Grid ShowGridLines="False">
+			<Grid.RowDefinitions>
+				<RowDefinition Height=".2*"/>
+				<RowDefinition/>
+				<RowDefinition Height=".1*"/>
+			</Grid.RowDefinitions>
+
+			<Grid 
+				Grid.Row="0"
+				ShowGridLines="False">
+				<Grid.RowDefinitions>
+					<RowDefinition Height=".5*"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height=".5*"/>
+				</Grid.RowDefinitions>
+
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1*"/>
+					<ColumnDefinition Width="16*"/>
+					<ColumnDefinition Width="1*"/>
+					<ColumnDefinition Width="8*"/>
+					<ColumnDefinition Width="1*"/>
+					<ColumnDefinition Width="8*"/>
+					<ColumnDefinition Width="1*"/>
+				</Grid.ColumnDefinitions>
+
+				<TextBox
+					Grid.Row="1"
+					Grid.Column="1"
+					Text="{Binding Search}"
+					VerticalAlignment="Stretch"
+					HorizontalAlignment="Stretch"
+					Background="#CEFFF9"
+					BorderBrush="Black"
+					BorderThickness="1"
+					FontSize="20"
+					Watermark="Введите для поиска"					
+					VerticalContentAlignment="Center"
+					ScrollViewer.VerticalScrollBarVisibility="Hidden"
+					ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+
+					<TextBox.Styles>
+						<Style
+						Selector="Border:pointerover">
+						<Setter
+							Property="Background"
+							Value="#00CC76"/>
+						</Style>
+					</TextBox.Styles>			
+				</TextBox>
+
+				<ComboBox
+					Grid.Row="1"
+					Grid.Column="3"
+					Items="{Binding SortingList}"
+					SelectedItem="{Binding SelectedSorting}"
+					VerticalAlignment="Stretch"
+					HorizontalAlignment="Stretch"
+					Background="#CEFFF9"
+					BorderBrush="Black"
+					BorderThickness="1"
+					FontSize="20"
+					PlaceholderText="Сортировка"
+					VerticalContentAlignment="Center"
+					HorizontalContentAlignment="Left">
+
+					<ComboBox.Styles>
+						<Style Selector="Border:pointerover">
+							<Setter
+								Property="Background"
+								Value="#00CC76"/>							
+						</Style>
+					</ComboBox.Styles>				
+				</ComboBox>
+
+				<ComboBox
+					Grid.Row="1"
+					Grid.Column="5"
+					Items="{Binding FilteringList}"
+					SelectedItem="{Binding SelectedFiltering}"
+					VerticalAlignment="Stretch"
+					HorizontalAlignment="Stretch"
+					Background="#CEFFF9"
+					BorderBrush="Black"
+					BorderThickness="1"
+					FontSize="20"
+					PlaceholderText="Фильтрация"
+					VerticalContentAlignment="Center"
+					HorizontalContentAlignment="Left">
+
+					<ComboBox.Styles>
+						<Style Selector="Border:pointerover">
+							<Setter
+								Property="Background"
+								Value="#00CC76"/>
+						</Style>
+					</ComboBox.Styles>
+				</ComboBox>					
+			</Grid>
+
+			<Grid
+				ShowGridLines="False"
+				Grid.Row="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width=".03*"/>
+					<ColumnDefinition Width=".96*"/>
+					<ColumnDefinition Width=".03*"/>
+				</Grid.ColumnDefinitions>
+
+				<ListBox
+					Grid.Column="1"
+					Items="{Binding Items}"
+					Background="Transparent">
+
+					<ListBox.Styles>
+						<Style Selector="ListBoxItem">
+							<Setter Property="Template">
+								<Setter.Value>
+									<ControlTemplate TargetType="ListBoxItem">
+										<Border
+											BorderBrush="Black"
+											BorderThickness="1"
+											MinHeight="140"
+											Margin="0 0 0 17">
+											
+											<Grid 
+												Opacity="1">
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="100*"/>
+													<ColumnDefinition Width="500*"/>
+													<ColumnDefinition Width="100*"/>
+												</Grid.ColumnDefinitions>
+												
+												<Image
+													Source="{Binding Image}"
+													Margin="10"/>
+
+												<StackPanel
+													Grid.Column="1"
+													Margin="20 10 0 0">
+
+													<StackPanel
+														Orientation="Horizontal"
+														Margin="8 8 0 0">
+														
+														<TextBlock
+															Text="{Binding Type}"
+															FontSize="18"/>
+
+														<TextBlock
+															Text=" | "
+															FontSize="18"/>
+
+														<TextBlock
+															Text="{Binding Title}"
+															FontSize="18"/>		
+													</StackPanel>
+													
+													<TextBlock
+														Text="{Binding ArticleNumber}"
+														FontSize="18"
+														Margin="8 0 0 0"/>
+													
+													<TextBlock
+														Text="{Binding Materials, TargetNullValue='Материалов нет'}"
+														TextWrapping="WrapWithOverflow"
+														FontSize="18"
+														Margin="8 0 0 0"/>	
+													
+												</StackPanel>
+
+												<TextBlock
+													Grid.Column="2"
+													Margin="8"
+													Text="{Binding Cost}"
+													FontSize="18"
+													TextWrapping="WrapWithOverflow"/>				
+											</Grid>
+											
+											<Border.Styles>
+												<Style
+												  Selector="Border">
+													<Setter
+													  Property="Background"
+													  Value="#CEFFF9"/>
+												</Style>
+												<Style
+												  Selector="Border:pointerover">
+													<Setter
+													  Property="Background"
+													  Value="#00CC76"/>
+												</Style>
+											</Border.Styles>
+											
+										</Border>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>												
+						</Style>						
+					</ListBox.Styles>							
+				</ListBox>			
+			</Grid>
+		</Grid>	
+	</Grid>
+</Window>
